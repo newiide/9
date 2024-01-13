@@ -14,30 +14,27 @@ const MonthsComponent = () => {
     });
   };
 
-  const [keysMonths, setKeysMonths] = useState([]);
-
   useEffect(() => {
     if (localStorage.getItem("events")) {
-      let a = JSON.parse(localStorage.getItem("events"));
-      let keysMassive = [];
-      for (let i = 0; i < Object.keys(a).length; i++) {
-        keysMassive.push(Object.keys(a)[i].split("-"));
-      }
+      const events = JSON.parse(localStorage.getItem("events"));
+      const keysMassive = Object.keys(events).map((key) => {
+        return key.split("-").map(Number); // Перетворюємо рядок в числа
+      });
       setKeysMonths(keysMassive);
     }
   }, []);
-
+  
   let datesMass = [];
   const checker = (i) => {
     keysMonths.forEach((numb) => {
-      if (
-        parseInt(numb[1]) === i &&
-        parseInt(numb[0]) === currentDate.getFullYear()
-      ) {
-        datesMass.push(parseInt(numb[1]));
+      const [year, month] = numb;
+      if (month === i && year === currentDate.getFullYear()) {
+        datesMass.push(month);
       }
     });
   };
+  
+  const [keysMonths, setKeysMonths] = useState([])  
 
 
   return (

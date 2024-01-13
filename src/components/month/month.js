@@ -64,7 +64,7 @@ const MonthComponent = () => {
     <div className="content-wrapper month-wrapper">
       <div className="header">{MONTHS[currentMonth]}</div>
       {WEEK_DAYS.map((dayName) => (
-        <div className="day-name">{dayName}</div>
+        <div className="day-name" key={dayName}>{dayName}</div>
       ))}
       {Array(daysCount)
         .fill(null)
@@ -77,10 +77,8 @@ const MonthComponent = () => {
 
           return (
             <div
-              onClick={() => {
-                click(i + 1);
-              }}
               key={i}
+              onClick={() => click(i + 1)}
               style={{ "--day-col-start": dayOfWeek }}
               className={
                 datesMass.includes(i)
